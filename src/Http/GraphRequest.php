@@ -361,7 +361,7 @@ class GraphRequest
             $client = $this->createGuzzleClient();
         }
 
-        $promise = $client->requestAsync(
+        return $client->requestAsync(
             $this->requestType,
             $this->_getRequestUrl(),
             [
@@ -400,7 +400,6 @@ class GraphRequest
                 return null;
             }
         );
-        return $promise;
     }
 
     /**
@@ -482,15 +481,14 @@ class GraphRequest
     *
     * @return array The headers for the request
     */
-    private function _getDefaultHeaders()
+    private function _getDefaultHeaders(): array
     {
-        $headers = [
+        return [
             'Host' => $this->baseUrl,
             'Content-Type' => 'application/json',
             'SdkVersion' => 'Graph-php-' . GraphConstants::SDK_VERSION,
             'Authorization' => 'Bearer ' . $this->accessToken
         ];
-        return $headers;
     }
 
     /**
